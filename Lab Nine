@@ -1,0 +1,59 @@
+<html>
+
+<head>
+<title>Particles</title>
+</head>
+<body>
+
+<canvas width="600" height="600" id="fireCanvas"></canvas>
+<script>
+var canvas
+var context;
+var particles;
+var timer;
+function degreesToRadians(degrees) {
+    return (degrees * Math.PI)/180;
+}
+funtion makeParticles() {
+   particles = [];
+   for (var i=0; i<30; i++) {
+       particles.push(new Particle());
+   }
+}
+function moveParticles() {
+    context.globalCompositeOperation = 'source-over';
+    context.fillStyle = 'rgba(0, 0, 0, 0.3)';
+    context.fillRect(0,0,canvas.width,canvas.height);
+    context.globalCompositeOperation = 'lighter';
+    for (var i=0; i < particles.length; i++) {
+
+      var p = particles[i];
+      context.beginPath();
+      context.arc(p.x, p.y, p.radius, 0, degreesToRadians(360), true);
+      context.fillStyle = p.color;
+      context.fill();
+    }
+}
+
+
+
+
+function Particle () {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = Math.random() * 10 - 5;
+    this.vy = Math.random() * 10 - 5;
+    var colors = ['red','green','blue','orange','purple','yellow','white'];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+    this.radius = 15;
+}
+window.onload = function() {
+    canvas = document.getElementById('canvas');
+    context = canvas.getContext('2d');
+    makeParticles();
+    makeParticles();
+}
+
+</script>
+</body>
+</html>
